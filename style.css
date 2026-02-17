@@ -1223,21 +1223,36 @@ a.btn.primary {
 .nudge {
   display: flex;
   align-items: center;
+  justify-content: center;
+  /* Center buttons */
   gap: 12px;
   width: 100%;
+  margin-top: 10px;
+  /* Separator from preview */
+  margin-bottom: 10px;
+  /* Separator from download btn */
 }
 
 .nudge-label {
-  text-align: left;
-  flex: 1;
+  display: none;
+  /* Hide text label to save space */
 }
 
 .nudge-buttons {
   display: inline-flex;
-  gap: 6px;
+  gap: 8px;
+  /* Slightly larger gap */
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   flex: 0 0 auto;
+  flex-wrap: wrap;
+}
+
+.nudge-sep {
+  width: 1px;
+  height: 24px;
+  background: var(--ui-border-16);
+  margin: 0 6px;
 }
 
 .nudge-btn {

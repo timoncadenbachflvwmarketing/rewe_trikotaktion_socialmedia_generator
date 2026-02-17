@@ -93,15 +93,41 @@ const overlayCache = {};
 document.body?.classList?.add("has-intro");
 
 const NUDGE_ICON_LEFT_SVG = `
-<svg class="nudge-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.928 32.928" aria-hidden="true" focusable="false">
-  <path d="M93.841,80.464A13.377,13.377,0,1,1,80.464,67.087,13.375,13.375,0,0,1,93.841,80.464ZM64,80.464A16.464,16.464,0,1,0,80.464,64,16.463,16.463,0,0,0,64,80.464Zm16.464-8.232v6.174H72.232v4.116h8.232V88.7h.515l8.232-8.232-8.232-8.232Z" transform="translate(96.928 96.928) rotate(180)" fill="currentColor"/>
+<svg class="nudge-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/>
 </svg>
 `.trim();
+
 const NUDGE_ICON_RIGHT_SVG = `
-<svg class="nudge-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.928 32.928" aria-hidden="true" focusable="false">
-  <path d="M93.841,80.464A13.377,13.377,0,1,1,80.464,67.087,13.375,13.375,0,0,1,93.841,80.464ZM64,80.464A16.464,16.464,0,1,0,80.464,64,16.463,16.463,0,0,0,64,80.464Zm16.464-8.232v6.174H72.232v4.116h8.232V88.7h.515l8.232-8.232-8.232-8.232Z" transform="translate(-64 -64)" fill="currentColor"/>
+<svg class="nudge-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/>
 </svg>
 `.trim();
+
+const NUDGE_ICON_UP_SVG = `
+<svg class="nudge-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" fill="currentColor"/>
+</svg>
+`.trim();
+
+const NUDGE_ICON_DOWN_SVG = `
+<svg class="nudge-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" fill="currentColor"/>
+</svg>
+`.trim();
+
+const ZOOM_ICON_IN_SVG = `
+<svg class="nudge-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/>
+</svg>
+`.trim();
+
+const ZOOM_ICON_OUT_SVG = `
+<svg class="nudge-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <path d="M19 13H5v-2h14v2z" fill="currentColor"/>
+</svg>
+`.trim();
+
 const BUILT_IN_MANIFEST = {
   themes: [
     {
@@ -175,7 +201,7 @@ function closeModal() {
 
 function showModal(message, title = "Hinweis") {
   if (!modalOverlay || !modalTitle || !modalMessage) {
-    alert(`${title}\n\n${message}`);
+    alert(`${title} \n\n${message} `);
     return;
   }
   lastFocusedEl = document.activeElement;
@@ -223,9 +249,9 @@ function startBootAnimation() {
 
     bootOverlay.classList.add("boot-fly");
     bootLogo.style.position = "fixed";
-    bootLogo.style.left = `${from.left}px`;
-    bootLogo.style.top = `${from.top}px`;
-    bootLogo.style.width = `${from.width}px`;
+    bootLogo.style.left = `${from.left} px`;
+    bootLogo.style.top = `${from.top} px`;
+    bootLogo.style.width = `${from.width} px`;
     bootLogo.style.height = "auto";
     bootLogo.style.margin = "0";
     bootLogo.style.transformOrigin = "top left";
@@ -284,7 +310,7 @@ function startIntroRevealSequence() {
   let currentDelay = START_DELAY_MS;
 
   for (const el of sequence) {
-    // Elements, die aktuell `display:none` sind, werden beim Einblenden ggf. separat animiert (z.B. Theme-Select).
+    // Elements, die aktuell `display: none` sind, werden beim Einblenden ggf. separat animiert (z.B. Theme-Select).
     if (el.classList.contains("hidden")) continue;
     window.setTimeout(() => {
       el.classList.add("is-revealed");
@@ -327,10 +353,10 @@ function initUploadTilt() {
     const rotateX = -dy * MAX_DEG;
     const tiltMagnitude = Math.hypot(rotateX, rotateY);
     const glowAngleDeg = tiltMagnitude < 0.01 ? 0 : ((Math.atan2(rotateY, rotateX) * 180) / Math.PI + 360) % 360;
-    dropzone.style.setProperty("--tilt-rx", `${rotateX.toFixed(2)}deg`);
-    dropzone.style.setProperty("--tilt-ry", `${rotateY.toFixed(2)}deg`);
-    dropzone.style.setProperty("--tilt-scale", `${SCALE}`);
-    dropzone.style.setProperty("--glow-angle", `${glowAngleDeg.toFixed(2)}deg`);
+    dropzone.style.setProperty("--tilt-rx", `${rotateX.toFixed(2)} deg`);
+    dropzone.style.setProperty("--tilt-ry", `${rotateY.toFixed(2)} deg`);
+    dropzone.style.setProperty("--tilt-scale", `${SCALE} `);
+    dropzone.style.setProperty("--glow-angle", `${glowAngleDeg.toFixed(2)} deg`);
   }
 
   function onPointerMove(e) {
@@ -467,7 +493,7 @@ function handleFile(file) {
 
       if (minRequiredHeight && img.height < minRequiredHeight) {
         showModal(
-          `Bildhöhe zu klein.\n\nErforderlich: mindestens ${minRequiredHeight}px (75% der größten Vorlage mit ${maxOverlayHeight}px Höhe).\nDein Bild: ${img.height}px.`,
+          `Bildhöhe zu klein.\n\nErforderlich: mindestens ${minRequiredHeight} px(75 % der größten Vorlage mit ${maxOverlayHeight}px Höhe).\nDein Bild: ${img.height} px.`,
           "Upload nicht möglich",
         );
         resetToStart();
@@ -503,7 +529,7 @@ async function renderAllFormats() {
   resultsGrid.innerHTML = "";
 
   for (const format of formats) {
-    if (!state.offsets[format.key]) state.offsets[format.key] = { x: 0, y: 0 };
+    if (!state.offsets[format.key]) state.offsets[format.key] = { x: 0, y: 0, scale: 1.0 };
     try {
       // eslint-disable-next-line no-await-in-loop
       const result = await renderSingleFormat(format, state.offsets[format.key], null);
@@ -518,7 +544,7 @@ async function renderAllFormats() {
       };
       resultsGrid.appendChild(card);
     } catch (err) {
-      console.error(`Fehler bei Format ${format.key}`, err);
+      console.error(`Fehler bei Format ${format.key} `, err);
     }
   }
 
@@ -535,7 +561,7 @@ async function renderSingleFormat(format, offset = { x: 0, y: 0 }, existingCanva
   canvas.width = format.width;
   canvas.height = format.height;
   const overlay = await loadOverlayCached(format).catch((err) => {
-    console.warn(`Overlay fehlt für ${format.key}`, err);
+    console.warn(`Overlay fehlt für ${format.key} `, err);
     return null;
   });
   const overlayLoaded = Boolean(overlay);
@@ -552,11 +578,18 @@ function drawFormatToCanvas(format, offset, canvas, overlayImg) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const img = state.sourceImage;
-  const scale = Math.max(format.width / img.width, format.height / img.height);
-  const drawW = img.width * scale;
-  const drawH = img.height * scale;
-  const offsetX = (format.width - drawW) / 2 + offset.x;
-  const offsetY = (format.height - drawH) / 2 + offset.y;
+  // Basis-Skalierung (Cover)
+  const baseScale = Math.max(format.width / img.width, format.height / img.height);
+  // Zusätzliche User-Skalierung
+  const userScale = offset.scale || 1.0;
+  const finalScale = baseScale * userScale;
+
+  const drawW = img.width * finalScale;
+  const drawH = img.height * finalScale;
+
+  // Zentriert rendern + User-Offset
+  const offsetX = (format.width - drawW) / 2 + (offset.x || 0);
+  const offsetY = (format.height - drawH) / 2 + (offset.y || 0);
 
   ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
   if (overlayImg) ctx.drawImage(overlayImg, 0, 0, format.width, format.height);
@@ -566,11 +599,24 @@ function clampOffset(format, offset) {
   // verhindert, dass das Bild über die Kanten hinausgeschoben wird
   if (!state.sourceImage) return offset;
   const img = state.sourceImage;
-  const scale = Math.max(format.width / img.width, format.height / img.height);
-  const drawW = img.width * scale;
-  const maxShift = (drawW - format.width) / 2;
-  const clampedX = Math.max(-maxShift, Math.min(maxShift, offset.x || 0));
-  return { x: clampedX, y: 0 };
+
+  const baseScale = Math.max(format.width / img.width, format.height / img.height);
+  const userScale = offset.scale || 1.0;
+  // Mindestens 0.1x, maximal 5x Zoom (als Beispiel-Limits, um Extremwerte zu vermeiden)
+  // userScale clampen? Hier nur den Offset clampen. Scale-Clamping im zoomFormat.
+
+  const finalScale = baseScale * userScale;
+  const drawW = img.width * finalScale;
+  const drawH = img.height * finalScale;
+
+  // Max shift nach links/rechts (positiv)
+  const maxShiftX = Math.max(0, (drawW - format.width) / 2);
+  const maxShiftY = Math.max(0, (drawH - format.height) / 2);
+
+  const clampedX = Math.max(-maxShiftX, Math.min(maxShiftX, offset.x || 0));
+  const clampedY = Math.max(-maxShiftY, Math.min(maxShiftY, offset.y || 0));
+
+  return { x: clampedX, y: clampedY, scale: userScale };
 }
 
 function loadOverlayCached(format) {
@@ -585,9 +631,9 @@ function loadOverlayCached(format) {
       overlayCache[format.key] = img;
       resolve(img);
     };
-    img.onerror = (err) => reject(new Error(`Overlay nicht gefunden oder CORS-Problem: ${format.overlay} (${err.message || err})`));
+    img.onerror = (err) => reject(new Error(`Overlay nicht gefunden oder CORS - Problem: ${format.overlay} (${err.message || err})`));
     const encoded = encodeURI(format.overlay);
-    img.src = IS_FILE_PROTOCOL ? encoded : `${encoded}?v=${Date.now()}`; // Cache-Busting (nicht für file://)
+    img.src = IS_FILE_PROTOCOL ? encoded : `${encoded}?v = ${Date.now()} `; // Cache-Busting (nicht für file://)
   });
 }
 
@@ -633,26 +679,71 @@ function buildResultCard(result) {
 
   const controls = document.createElement("div");
   controls.className = "nudge";
-  const label = document.createElement("span");
-  label.className = "meta nudge-label";
-  label.textContent = "Motiv Ausrichten:";
 
   const buttons = document.createElement("div");
   buttons.className = "nudge-buttons";
+
+  // Zoom Out
+  const zoomOutBtn = document.createElement("button");
+  zoomOutBtn.type = "button";
+  zoomOutBtn.className = "ghost nudge-btn";
+  zoomOutBtn.setAttribute("aria-label", "Zoom Out");
+  zoomOutBtn.innerHTML = ZOOM_ICON_OUT_SVG;
+  zoomOutBtn.addEventListener("click", () => zoomFormat(format.key, -0.1));
+
+  // Zoom In
+  const zoomInBtn = document.createElement("button");
+  zoomInBtn.type = "button";
+  zoomInBtn.className = "ghost nudge-btn";
+  zoomInBtn.setAttribute("aria-label", "Zoom In");
+  zoomInBtn.innerHTML = ZOOM_ICON_IN_SVG;
+  zoomInBtn.addEventListener("click", () => zoomFormat(format.key, 0.1));
+
+  // Divider
+  const sep = document.createElement("div");
+  sep.className = "nudge-sep";
+
+  // Navigation Group
+  const navGroup = document.createElement("div");
+  navGroup.className = "nudge-nav";
+
+  // Left
   const leftBtn = document.createElement("button");
   leftBtn.type = "button";
   leftBtn.className = "ghost nudge-btn";
-  leftBtn.setAttribute("aria-label", "Motiv nach links verschieben");
+  leftBtn.setAttribute("aria-label", "Nach links");
   leftBtn.innerHTML = NUDGE_ICON_LEFT_SVG;
-  leftBtn.addEventListener("click", () => nudgeFormat(format.key, -30));
+  leftBtn.addEventListener("click", () => nudgeFormat(format.key, -30, 0));
+
+  // Right
   const rightBtn = document.createElement("button");
   rightBtn.type = "button";
   rightBtn.className = "ghost nudge-btn";
-  rightBtn.setAttribute("aria-label", "Motiv nach rechts verschieben");
+  rightBtn.setAttribute("aria-label", "Nach rechts");
   rightBtn.innerHTML = NUDGE_ICON_RIGHT_SVG;
-  rightBtn.addEventListener("click", () => nudgeFormat(format.key, 30));
-  buttons.append(leftBtn, rightBtn);
-  controls.append(label, buttons);
+  rightBtn.addEventListener("click", () => nudgeFormat(format.key, 30, 0));
+
+  // Up
+  const upBtn = document.createElement("button");
+  upBtn.type = "button";
+  upBtn.className = "ghost nudge-btn";
+  upBtn.setAttribute("aria-label", "Nach oben");
+  upBtn.innerHTML = NUDGE_ICON_UP_SVG;
+  upBtn.addEventListener("click", () => nudgeFormat(format.key, 0, -30));
+
+  // Down
+  const downBtn = document.createElement("button");
+  downBtn.type = "button";
+  downBtn.className = "ghost nudge-btn";
+  downBtn.setAttribute("aria-label", "Nach unten");
+  downBtn.innerHTML = NUDGE_ICON_DOWN_SVG;
+  downBtn.addEventListener("click", () => nudgeFormat(format.key, 0, 30));
+
+  // Nav Order: L, U, D, R for linear or grid
+  buttons.append(zoomOutBtn, zoomInBtn, sep, leftBtn, upBtn, downBtn, rightBtn);
+  controls.appendChild(buttons);
+
+
 
   if (!overlayLoaded) {
     const warn = document.createElement("p");
@@ -1174,12 +1265,41 @@ if (menuNewUpload) {
   });
 }
 
-function nudgeFormat(formatKey, deltaX) {
+function nudgeFormat(formatKey, deltaX, deltaY) {
   if (!state.sourceImage) return;
   const format = formats.find((f) => f.key === formatKey);
   if (!format) return;
-  if (!state.offsets[formatKey]) state.offsets[formatKey] = { x: 0, y: 0 };
-  const nextOffset = { x: state.offsets[formatKey].x + deltaX, y: 0 };
+  if (!state.offsets[formatKey]) state.offsets[formatKey] = { x: 0, y: 0, scale: 1.0 };
+
+  const current = state.offsets[formatKey];
+  const nextOffset = {
+    x: current.x + (deltaX || 0),
+    y: current.y + (deltaY || 0),
+    scale: current.scale
+  };
+  state.offsets[formatKey] = clampOffset(format, nextOffset);
+  rerenderFormat(format);
+}
+
+function zoomFormat(formatKey, deltaScale) {
+  if (!state.sourceImage) return;
+  const format = formats.find((f) => f.key === formatKey);
+  if (!format) return;
+  if (!state.offsets[formatKey]) state.offsets[formatKey] = { x: 0, y: 0, scale: 1.0 };
+
+  const current = state.offsets[formatKey];
+  let newScale = current.scale + deltaScale;
+
+  // Limits: 1.0x bis 5.0x
+  newScale = Math.max(1.0, Math.min(5.0, newScale));
+
+  const nextOffset = {
+    x: current.x,
+    y: current.y,
+    scale: newScale
+  };
+
+  // Nach dem Zoom müssen wir ggf. die Offsets neu clampen, damit das Bild nicht "wegfliegt"
   state.offsets[formatKey] = clampOffset(format, nextOffset);
   rerenderFormat(format);
 }
