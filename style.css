@@ -992,6 +992,15 @@ body.has-results main {
   font-weight: bold;
 }
 
+.steps h3 {
+  text-align: center;
+  font-size: 16px;
+  /* +2px larger than p (16px) */
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
 /* Theme-Auswahl */
 .theme-select select {
   background: transparent;
