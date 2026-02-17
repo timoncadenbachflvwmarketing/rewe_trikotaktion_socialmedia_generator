@@ -1222,15 +1222,48 @@ a.btn.primary {
   justify-content: flex-start;
 }
 
+.card-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-top: 25px;
+}
+
 .success {
   background: var(--accent-strong);
   color: #ffffff;
   border: 1px solid var(--accent-strong);
-  padding: 5px 10px;
-  font-size: 12px;
+  padding: 8px 16px;
+  font-size: 14px;
   font-weight: 700;
-  margin-top: 25px;
-  margin-left: -5px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-share {
+  background: transparent;
+  border: 1px solid var(--ui-border-16);
+  color: var(--text);
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 0.2s ease;
+}
+
+.btn-share:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.btn-share svg {
+  width: 18px;
+  height: 18px;
 }
 
 .text-link {
