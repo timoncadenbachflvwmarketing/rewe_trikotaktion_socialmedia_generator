@@ -1240,8 +1240,8 @@ a.btn.primary {
 
 .nudge-buttons {
   display: inline-flex;
-  gap: 8px;
-  /* Slightly larger gap */
+  gap: 4px;
+  /* Reduced gap */
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
@@ -1250,9 +1250,11 @@ a.btn.primary {
 
 .nudge-sep {
   width: 1px;
-  height: 24px;
+  height: 20px;
+  /* Scaled down separator */
   background: var(--ui-border-16);
-  margin: 0 6px;
+  margin: 0 4px;
+  /* Reduced margin */
 }
 
 .nudge-btn {
@@ -1262,8 +1264,10 @@ a.btn.primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  /* Reduced from 40px */
+  height: 32px;
+  /* Reduced from 40px */
   border-radius: 999px;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
@@ -1271,9 +1275,12 @@ a.btn.primary {
 }
 
 .nudge-icon-svg {
-  width: 30px;
-  height: 30px;
+  width: 16px;
+  /* Reduced from 20px */
+  height: 16px;
+  /* Reduced from 20px */
   display: block;
+  flex-shrink: 0;
 }
 
 .nudge-btn .nudge-icon-svg path {
