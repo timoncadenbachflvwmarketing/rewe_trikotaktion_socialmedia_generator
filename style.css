@@ -312,171 +312,195 @@ h3 {
   text-align: left;
 }
 
-/* Guide page (Anleitung) */
-.guide-card {
-  align-items: stretch;
-  text-align: left;
-}
-
-.guide-card h2,
-.guide-card .hero-sub {
-  text-align: left;
-}
-
-.guide-page .hero-sub {
-  font-weight: 600;
-  margin: 0;
-}
-
+/* Guide page (Anleitung) Redesign */
 .guide-page {
   text-align: left;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: #f8f9fa;
+  /* Bootstrap light bg */
+}
+
+.guide-page .section-inner {
+  max-width: 1140px;
+  /* Bootstrap container-xl */
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Typography refinement */
+.guide-page h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+  color: var(--text-contrast);
+  text-align: left;
+}
+
+.guide-page h3 {
+  font-size: 1.5rem;
+  /* Bootstrap h3 approx */
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--text-contrast);
+  text-align: left;
+}
+
+.guide-page p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--text);
+  /* Darker text for better readability */
+}
+
+.guide-page .muted {
+  color: var(--text-soft);
 }
 
 .guide-page ul,
-.guide-page ol,
-.guide-page li,
-.guide-page p,
-.guide-page h2,
-.guide-page h3,
-.guide-page .muted {
+.guide-page ol {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
   text-align: left;
 }
 
-/* Anleitung: äußerer Container soll kein "Card"-Look sein */
-.guide-page .upload-card.guide-card {
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  padding: 0;
-  border-radius: 0;
-  gap: 14px;
+.guide-page li {
+  margin-bottom: 0.5rem;
 }
 
-.guide-grid {
+/* Card / Panel Styling (Bootstrap Card inspired) */
+.info-panel {
   width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  /* Bootstrap card border */
+  border-radius: 0.25rem;
+  /* Bootstrap radius */
+  padding: 1.5rem;
+  /* ~24px */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-bottom: 1.5rem;
+}
+
+/* Headings inside panels */
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 0.75rem;
+}
+
+.panel-head h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.panel-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  /* Slightly rounded */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ui-surface-06);
+  color: var(--accent);
+  font-size: 1.2rem;
+  flex: 0 0 auto;
+}
+
+/* TOC (Sidebar) */
+.guide-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
-  margin-top: 6px;
+  gap: 1.5rem;
+  margin-top: 2rem;
 }
 
-.guide-content {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.guide-toc {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 0;
 }
 
 .guide-toc nav {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 2px;
+  /* Bootstrap list-group style gap */
 }
 
 .toc-link {
-  color: var(--text-link);
+  display: block;
+  padding: 0.75rem 1.25rem;
+  color: #495057;
   text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 12px;
-  border: 1px solid var(--ui-border-10);
-  background: var(--ui-surface-04);
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  margin-bottom: -1px;
+  /* collapse borders */
 }
 
-.toc-link:hover,
-.toc-link:focus-visible {
-  color: var(--text-link-hover);
-  border-color: var(--ui-border-18);
-  background: var(--ui-surface-06);
+.toc-link:first-child {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 
-.panel-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 6px;
+.toc-link:last-child {
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  margin-bottom: 0;
 }
 
-.panel-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--ui-surface-06);
-  border: 1px solid var(--ui-border-12);
-  color: var(--text-dim);
-  font-size: 14px;
-  flex: 0 0 auto;
+.toc-link:hover {
+  background-color: #f8f9fa;
+  color: #212529;
+  z-index: 1;
+  /* bring border on top */
 }
 
-.panel-head h3 {
-  margin: 0;
-}
-
-.guide-list {
-  margin: 10px 0 0;
-  padding-left: 18px;
-  color: var(--text-link);
-  font-size: 16px;
-  line-height: 1.55;
-}
-
-.guide-steps {
-  margin: 10px 0 0;
-  padding-left: 20px;
-  color: var(--text-muted);
-  font-size: 16px;
-  line-height: 1.55;
-}
-
-.guide-steps li {
-  margin: 10px 0;
-}
-
+/* Callouts / Alerts */
 .guide-callout {
-  margin-top: 10px;
-  background: var(--accent-callout-bg);
-  border: 1px solid var(--accent-callout-border);
-  border-radius: var(--radius-lg);
-  padding: 10px 12px;
+  margin-top: 1rem;
+  background-color: #fff3cd;
+  /* Bootstrap warning bg */
+  border: 1px solid #ffeeba;
+  color: #856404;
+  border-radius: 0.25rem;
+  padding: 1rem 1.25rem;
 }
 
-.guide-callout .muted {
+.guide-callout p {
   margin: 0;
+  color: inherit;
 }
 
-.info-panel {
-  width: 100%;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  padding: 14px 14px 12px;
-  box-shadow: var(--glass-shadow-soft);
-}
+/* Responsive Grid */
+@media (min-width: 992px) {
 
-.info-panel h3 {
-  margin-top: 0;
-}
-
-.info-panel+.info-panel {
-  margin-top: 12px;
-}
-
-.upload-card .muted {
-  text-align: left;
-}
-
-@media (min-width: 960px) {
+  /* Bootstrap lg breakpoint */
   .guide-grid {
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 280px 1fr;
     align-items: start;
   }
 
   .guide-toc {
     position: sticky;
-    top: 92px;
+    top: 2rem;
   }
+}
+
+/* Helper: Reset default guide card styles that conflict */
+.guide-page .upload-card.guide-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 a {
@@ -1421,4 +1445,32 @@ a.btn.primary {
     padding: 14px 14px;
     border-radius: 14px;
   }
+}
+
+/* Force Left Alignment for Guide Page Text ONLY */
+.guide-page main,
+.guide-page .guide-content,
+.guide-page .info-panel,
+.guide-page .guide-card,
+.guide-page p,
+.guide-page li,
+.guide-page h1,
+.guide-page h2,
+.guide-page h3,
+.guide-page .guide-toc,
+.guide-page .toc-link,
+.guide-page .panel-head,
+.guide-page .disclaimer {
+  text-align: left !important;
+}
+
+/* Ensure Logo remains centered */
+.guide-page .page-header {
+  justify-content: center !important;
+  /* Keep logo centered */
+}
+
+.guide-page .logo-wrap {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
