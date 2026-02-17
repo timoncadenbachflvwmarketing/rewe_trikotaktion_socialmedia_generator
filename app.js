@@ -5,7 +5,7 @@ const defaultFormats = [
     label: "Facebook Beitrag (4:5)",
     width: 1080,
     height: 1350,
-    overlay: "overlays/facebook_post_4x5.png",
+    overlay: "overlays/REWE_Trikotaktion/Post.png",
     filename: "flvw_facebook_post_1080x1350",
   },
   {
@@ -13,7 +13,7 @@ const defaultFormats = [
     label: "Facebook Story",
     width: 1080,
     height: 1920,
-    overlay: "overlays/facebook_story_1080x1920.png",
+    overlay: "overlays/REWE_Trikotaktion/Hochformat.png",
     filename: "flvw_facebook_story_1080x1920",
   },
   {
@@ -21,7 +21,7 @@ const defaultFormats = [
     label: "Instagram Beitrag (4:5)",
     width: 1080,
     height: 1350,
-    overlay: "overlays/instagram_post_4x5.png",
+    overlay: "overlays/REWE_Trikotaktion/Post.png",
     filename: "flvw_instagram_post_1080x1350",
   },
   {
@@ -29,7 +29,7 @@ const defaultFormats = [
     label: "Instagram Story",
     width: 1080,
     height: 1920,
-    overlay: "overlays/instagram_story_1080x1920.png",
+    overlay: "overlays/REWE_Trikotaktion/Hochformat.png",
     filename: "flvw_instagram_story_1080x1920",
   },
   {
@@ -37,7 +37,7 @@ const defaultFormats = [
     label: "FLVW Homepage (16:9)",
     width: 1920,
     height: 1080,
-    overlay: "overlays/flvw_homepage_1920x1080.png",
+    overlay: "overlays/REWE_Trikotaktion/Querformat.png",
     filename: "flvw_homepage_1920x1080",
   },
 ];
@@ -140,12 +140,10 @@ const BUILT_IN_MANIFEST = {
       name: "REWE Trikotaktion",
       path: "REWE_Trikotaktion/",
       files: [
-        "FLVW_homepage_1920x1080.png",
-        "facebook_post_4x5.png",
-        "facebook_story_1080x1920.png",
-        "flvw_werbung_500x500.png",
-        "instagram_post_4x5.png",
-        "instagram_story_1080x1920.png",
+        "Hochformat.png",
+        "Post.png",
+        "Quadratisch.png",
+        "Querformat.png",
       ],
     },
   ],
