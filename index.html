@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLVW Social Media GFX Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+  <script src="app.js?v=2" defer></script>
+</head>
+<body class="is-booting">
+  <div class="boot-overlay" id="bootOverlay" aria-hidden="true">
+    <img class="boot-logo" id="bootLogo" src="assets/logo.png" alt="" aria-hidden="true">
+    <div class="progress" aria-hidden="true">
+      <div class="progress-bar animate"></div>
+    </div>
+  </div>
+
+  <header class="page-header">
+    <div class="logo-wrap">
+      <a class="logo-link" href="." aria-label="Zur Startseite">
+        <img class="logo" src="assets/logo.png" alt="Logo">
+      </a>
+    </div>
+    <div class="results-menu" id="resultsMenuWrap">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menü" aria-expanded="false" aria-controls="menuDropdown">
+        <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M3 6.5a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm0 5.5a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm1 4.5a1 1 0 0 0 0 2h16a1 1 0 1 0 0-2H4Z"/>
+        </svg>
+      </button>
+      <div class="menu-dropdown hidden" id="menuDropdown" role="menu" aria-label="Aktionen">
+        <button class="menu-item" id="menuDownloadAll" type="button" role="menuitem" disabled>Alle herunterladen</button>
+        <button class="menu-item" id="menuNewUpload" type="button" role="menuitem">Neuer Upload</button>
+        <a class="menu-item" href="anleitung.html" role="menuitem">Anleitung</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-inner hero">
+      <div class="upload-card tilt-panel intro-reveal" id="dropzone" data-intro="upload">
+        <img src="assets/upload_icon.svg" alt="Upload Icon" width="70" height="70">
+        <h2>Social Media Grafik Generator</h2>
+        <p class="hero-sub">Ziehen Sie ein Foto per Drag-and-Drop hierhin, um unseren Social Media Grafik Generator zu verwenden.</p>
+        <div class="upload-actions" id="uploadActions">
+          <input type="file" id="fileInput" accept="image/png,image/jpeg">
+          <label class="primary upload-button" id="selectButton" for="fileInput" role="button" tabindex="0">Datei auswählen</label>
+        </div>
+        <div class="file-row">
+          <p class="file-name" id="fileName"> </p>
+          <button class="file-clear hidden" id="clearFileBtn" type="button" aria-label="Datei entfernen">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4Z"/>
+            </svg>
+          </button>
+        </div>
+        <button class="primary upload-button hidden" id="generateBtn" type="button">Generieren</button>
+      </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner actions-bar">
+        <div class="theme-select hidden intro-reveal" id="themeSelectWrap" data-intro="theme">
+          <label for="themeSelect">Motiv auswählen</label>
+          <div class="theme-loading" id="themeLoading" role="status" aria-live="polite">
+            <div class="spinner" aria-hidden="true"></div>
+            <span class="meta">Motive werden geladen ...</span>
+          </div>
+          <select id="themeSelect" class="hidden"></select>
+        </div>
+        <div class="steps">
+          <p class="intro-reveal" data-intro="step">1. Laden Sie ein Foto hoch</p>
+          <p class="intro-reveal" data-intro="step">2. Klicken Sie auf Generieren</p>
+          <p class="intro-reveal" data-intro="step">3. Laden Sie Ihre passenden Grafikformate herunter</p>
+        </div>
+        <button class="ghost hidden" id="newUploadBtn" type="button">Neuer Upload</button>
+        <button class="ghost strong hidden" id="zipBtn" type="button" disabled>Gesamtpaket herunterladen (zip)</button>
+      </div>
+    </section>
+
+    <section class="section results" id="resultsSection">
+      <div class="section-inner">
+        <div class="grid" id="resultsGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="loading-overlay hidden" id="loadingOverlay" role="status" aria-live="polite" aria-label="Generierung läuft">
+    <div class="loading-title">Generiere Grafiken</div>
+    <div class="progress" aria-hidden="true">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalMessage">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Hinweis</h3>
+        <button class="modal-close" id="modalCloseBtn" type="button" aria-label="Schließen">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4Z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modalMessage"></div>
+      <div class="modal-actions">
+        <button class="primary" id="modalOkBtn" type="button">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">FLVW Marketing GmbH | Jahnstraße 76-78 | 59174 Kamen</div>
+</body>
+</html>

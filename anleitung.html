@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anleitung – FLVW Social Media GFX Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="guide-page">
+  <header class="page-header">
+    <div class="logo-wrap">
+      <a class="logo-link" href="index.html" aria-label="Zurück zum Generator">
+        <img class="logo" src="assets/logo.png" alt="Logo">
+      </a>
+    </div>
+    <div class="results-menu" id="resultsMenuWrap">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menü" aria-expanded="false" aria-controls="menuDropdown">
+        <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M3 6.5a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm0 5.5a1 1 0 0 1 1-1h16a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm1 4.5a1 1 0 0 0 0 2h16a1 1 0 1 0 0-2H4Z"/>
+        </svg>
+      </button>
+      <div class="menu-dropdown hidden" id="menuDropdown" role="menu" aria-label="Aktionen">
+        <button class="menu-item" type="button" role="menuitem" disabled>Alle herunterladen</button>
+        <a class="menu-item" href="index.html" role="menuitem">Neuer Upload</a>
+        <a class="menu-item" href="anleitung.html" role="menuitem" aria-current="page">Anleitung</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-inner">
+        <div class="upload-card guide-card">
+          <div class="guide-grid">
+            <aside class="info-panel guide-toc" aria-label="Inhaltsverzeichnis">
+              <nav>
+                <a class="toc-link" href="#zweck">Wofür gedacht?</a>
+                <a class="toc-link" href="#funktion">Was macht er?</a>
+                <a class="toc-link" href="#bedienung">Bedienung</a>
+                <a class="toc-link" href="#anforderungen">Datei & Mindesthöhe</a>
+                <a class="toc-link" href="#downloads">Downloads</a>
+                <a class="toc-link" href="#menue">Menü</a>
+              </nav>
+            </aside>
+
+            <div class="guide-content">
+              <section class="info-panel" id="zweck">
+                <div class="panel-head">
+                  <span class="panel-icon" aria-hidden="true">✦</span>
+                  <h3>Wofür ist der Generator gedacht?</h3>
+                </div>
+                <p class="muted">
+                  Der Social Media Grafik Generator unterstützt Sie dabei, aus einem hochgeladenen Foto schnell konsistente Social-Media-Grafiken zu erstellen.
+                  Dabei werden vordefinierte Vorlagen/Overlays (z.B. für Instagram und Facebook) automatisch über Ihr Foto gelegt und in die passenden Formate gerendert.
+                </p>
+              </section>
+
+              <section class="info-panel" id="funktion">
+                <div class="panel-head">
+                  <span class="panel-icon" aria-hidden="true">▦</span>
+                  <h3>Was macht der Generator?</h3>
+                </div>
+                <p class="muted">
+                  Nach dem Upload erzeugt der Generator mehrere Ausgabeformate (je nach Motiv/Vorlage) und zeigt diese als Vorschau an.
+                  Sie können die generierten Grafiken anschließend einzeln oder gesammelt als ZIP herunterladen.
+                </p>
+                <ul class="guide-list">
+                  <li>Automatisches Rendern in mehrere Formate</li>
+                  <li>Vorschau der Ergebnisse direkt im Browser</li>
+                  <li>Feinjustierung des Bildausschnitts über „Motiv ausrichten“</li>
+                </ul>
+              </section>
+
+              <section class="info-panel" id="bedienung">
+                <div class="panel-head">
+                  <span class="panel-icon" aria-hidden="true">✓</span>
+                  <h3>So bedienen Sie den Generator</h3>
+                </div>
+                <ol class="guide-steps">
+                  <li><strong>Foto hochladen:</strong> Wählen Sie eine PNG- oder JPG-Datei aus oder ziehen Sie sie per Drag-and-Drop in das Upload-Feld.</li>
+                  <li><strong>Datei prüfen:</strong> Nach dem Upload sehen Sie den Dateinamen und können die Datei über das weiße „X“ wieder entfernen.</li>
+                  <li><strong>Motiv auswählen:</strong> Wählen Sie das gewünschte Motiv aus (falls verfügbar).</li>
+                  <li><strong>Generieren:</strong> Klicken Sie auf „Generieren“, um alle Formate zu erstellen.</li>
+                  <li><strong>Feinausrichtung:</strong> Nutzen Sie bei Bedarf „Motiv ausrichten“, um den Bildausschnitt zu optimieren.</li>
+                </ol>
+              </section>
+
+              <section class="info-panel" id="anforderungen">
+                <div class="panel-head">
+                  <span class="panel-icon" aria-hidden="true">⟡</span>
+                  <h3>Wichtige Hinweise (Datei & Mindesthöhe)</h3>
+                </div>
+                <p class="muted">
+                  Es werden ausschließlich <strong>PNG</strong>- und <strong>JPG</strong>-Dateien akzeptiert. Zusätzlich muss Ihr Bild eine Mindesthöhe erfüllen,
+                  damit die Vorlagen sauber angewendet werden können.
+                </p>
+                <div class="guide-callout">
+                  <p class="muted">
+                    <strong>Mindesthöhe:</strong> mindestens <strong>75%</strong> der Höhe der größten verwendeten Vorlage (Overlay).
+                    Beispiel: Wenn die größte Vorlage <strong>1920px</strong> hoch ist, muss Ihr Bild mindestens <strong>1440px</strong> hoch sein.
+                  </p>
+                </div>
+                <p class="muted">
+                  Wenn die Datei nicht geeignet ist (z.B. falsches Dateiformat oder zu geringe Höhe), erscheint eine Meldung als Popup mit der genauen Fehlerbeschreibung.
+                </p>
+              </section>
+
+              <section class="info-panel" id="downloads">
+                <div class="panel-head">
+                  <span class="panel-icon" aria-hidden="true">⬇</span>
+                  <h3>Downloads</h3>
+                </div>
+                <p class="muted">
+                  Sie können die Grafiken entweder <strong>einzeln</strong> pro Ergebnis-Kachel herunterladen oder gesammelt als <strong>ZIP</strong>.
+                  Der ZIP-Download bündelt alle generierten Formate in einer Datei.
+                </p>
+              </section>
+
+              <section class="info-panel" id="menue">
+                <div class="panel-head">
+                  <span class="panel-icon" aria-hidden="true">☰</span>
+                  <h3>Menü (oben rechts)</h3>
+                </div>
+                <p class="muted">
+                  Über das Menü können Sie jederzeit einen „Neuen Upload“ starten. Der Punkt „Alle herunterladen“ ist erst aktiv, sobald Ergebnisse generiert wurden.
+                  Außerdem gelangen Sie von dort direkt zur Anleitung.
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="disclaimer">FLVW Marketing GmbH | Jahnstraße 76-78 | 59174 Kamen</div>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const menuDropdown = document.getElementById("menuDropdown");
+    function closeMenu() {
+      if (!menuDropdown || !menuBtn) return;
+      menuDropdown.classList.add("hidden");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+    if (menuBtn && menuDropdown) {
+      menuBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const isOpen = !menuDropdown.classList.contains("hidden");
+        if (isOpen) {
+          closeMenu();
+          return;
+        }
+        menuDropdown.classList.remove("hidden");
+        menuBtn.setAttribute("aria-expanded", "true");
+      });
+      document.addEventListener("click", (e) => {
+        if (e.target === menuBtn || menuBtn.contains(e.target)) return;
+        if (menuDropdown.contains(e.target)) return;
+        closeMenu();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMenu();
+      });
+    }
+  </script>
+</body>
+</html>
