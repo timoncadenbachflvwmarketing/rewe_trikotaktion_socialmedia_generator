@@ -129,7 +129,6 @@ async function initThemesAndFormats() {
     if (applyFallbackIfEmpty(themes)) return;
     populateThemeSelect(themes);
     setTheme(themes[0].name);
-    toggleThemeLoading(false);
   } catch (err) {
     console.error("Overlay-Ermittlung fehlgeschlagen, nutze Defaults", err);
     applyFallbackIfEmpty([]);
@@ -1080,7 +1079,7 @@ function applyFallbackIfEmpty(list) {
 function populateThemeSelect(list) {
   if (!themeSelect || !themeSelectWrap) return;
   toggleThemeLoading(false);
-  ensureThemeSelectVisible();
+
   themeSelect.innerHTML = "";
   themeSelect.disabled = false;
   if (!list.length) {
@@ -1093,7 +1092,14 @@ function populateThemeSelect(list) {
     opt.textContent = t.name;
     themeSelect.appendChild(opt);
   });
-  ensureThemeSelectVisible();
+
+  // Wenn nur 1 Motiv existiert, blenden wir die Auswahl aus
+  if (list.length <= 1) {
+    themeSelectWrap.classList.add("hidden");
+    themeSelectWrap.classList.remove("is-revealed");
+  } else {
+    ensureThemeSelectVisible();
+  }
 }
 
 function setTheme(name) {
