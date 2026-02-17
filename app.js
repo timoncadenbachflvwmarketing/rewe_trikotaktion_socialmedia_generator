@@ -415,11 +415,11 @@ dropzone.addEventListener("drop", (e) => {
 generateBtn.addEventListener("click", async () => {
   await formatsReady;
   if (!state.sourceImage) {
-    showModal("Bitte laden Sie zuerst ein Bild hoch.");
+    showModal("Bitte lade zuerst ein Bild hoch.");
     return;
   }
   if (!formats.length) {
-    showModal("Keine Overlays gefunden. Bitte legen Sie PNGs in den Ordner „overlays“.");
+    showModal("Keine Overlays gefunden. Bitte lege PNGs in den Ordner „overlays“.");
     return;
   }
   generateBtn.disabled = true;
@@ -430,7 +430,7 @@ generateBtn.addEventListener("click", async () => {
     await Promise.all([renderAllFormats(), delay(3000)]);
   } catch (err) {
     console.error(err);
-    showModal("Fehler beim Rendern. Bitte versuchen Sie es erneut.");
+    showModal("Fehler beim Rendern. Bitte versuche es erneut.");
   } finally {
     toggleLoading(false);
     generateBtn.disabled = false;
@@ -448,7 +448,7 @@ function handleFile(file) {
     file.name.toLowerCase().endsWith(".jpg") ||
     file.name.toLowerCase().endsWith(".jpeg");
   if (!isPng && !isJpeg) {
-    showModal("Bitte laden Sie nur PNG oder JPG hoch.", "Upload nicht möglich");
+    showModal("Bitte lade nur PNG oder JPG hoch.", "Upload nicht möglich");
     resetToStart();
     return;
   }
@@ -468,7 +468,7 @@ function handleFile(file) {
 
       if (minRequiredHeight && img.height < minRequiredHeight) {
         showModal(
-          `Bildhöhe zu klein.\n\nErforderlich: mindestens ${minRequiredHeight}px (75% der größten Vorlage mit ${maxOverlayHeight}px Höhe).\nIhr Bild: ${img.height}px.`,
+          `Bildhöhe zu klein.\n\nErforderlich: mindestens ${minRequiredHeight}px (75% der größten Vorlage mit ${maxOverlayHeight}px Höhe).\nDein Bild: ${img.height}px.`,
           "Upload nicht möglich",
         );
         resetToStart();
@@ -495,7 +495,7 @@ function openFilePicker() {
 async function renderAllFormats() {
   // Rendert alle Formate und baut die Ergebnis-Karten
   if (!formats.length) {
-    showModal("Keine Overlays gefunden. Bitte legen Sie PNGs in den Ordner „overlays“.");
+    showModal("Keine Overlays gefunden. Bitte lege PNGs in den Ordner „overlays“.");
     return;
   }
   state.results = [];
@@ -744,7 +744,7 @@ async function downloadSingle(formatKey) {
     triggerDownload(blob, fileName);
   } catch (err) {
     console.error("Download fehlgeschlagen", err);
-    showModal("Download fehlgeschlagen. Bitte prüfen Sie die Konsole (ggf. Canvas/CORS-Problem).");
+    showModal("Download fehlgeschlagen. Bitte prüfe die Konsole (ggf. Canvas/CORS-Problem).");
   }
 }
 
