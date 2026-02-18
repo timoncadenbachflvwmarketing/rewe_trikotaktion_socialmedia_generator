@@ -13,7 +13,7 @@ const defaultFormats = [
     label: "Facebook Story",
     width: 1080,
     height: 1920,
-    overlay: "overlays/REWE_Trikotaktion/Hochformat.png",
+    overlay: "overlays/REWE_Trikotaktion/Querformat.png", // Swapped based on actual dims
     filename: "flvw_facebook_story_1080x1920",
   },
   {
@@ -29,7 +29,7 @@ const defaultFormats = [
     label: "Instagram Story",
     width: 1080,
     height: 1920,
-    overlay: "overlays/REWE_Trikotaktion/Hochformat.png",
+    overlay: "overlays/REWE_Trikotaktion/Querformat.png", // Swapped based on actual dims
     filename: "flvw_instagram_story_1080x1920",
   },
   {
@@ -37,8 +37,16 @@ const defaultFormats = [
     label: "FLVW Homepage (16:9)",
     width: 1920,
     height: 1080,
-    overlay: "overlays/REWE_Trikotaktion/Querformat.png",
+    overlay: "overlays/REWE_Trikotaktion/Hochformat.png", // Swapped based on actual dims
     filename: "flvw_homepage_1920x1080",
+  },
+  {
+    key: "flvw_werbung",
+    label: "FLVW Werbung (1:1)",
+    width: 500,
+    height: 500,
+    overlay: "overlays/REWE_Trikotaktion/Quadratisch.png",
+    filename: "flvw_werbung_500x500",
   },
 ];
 
@@ -766,7 +774,7 @@ function buildResultCard(result) {
 
   actions.appendChild(downloadBtn);
 
-  if (navigator.share) {
+  if (true) {
     const shareBtn = document.createElement("button");
     shareBtn.className = "btn-share"; // New class for styling
     shareBtn.type = "button";
@@ -782,7 +790,7 @@ function buildResultCard(result) {
             text: 'Hier ist dein generiertes Visual!',
           });
         } else {
-          showModal("Teilen wird von diesem Gerät nicht unterstützt.", "Hinweis");
+          showModal("Teilen wird von diesem Gerät nicht unterstützt. Bitte nutze den Download-Button.", "Teilen nicht möglich");
         }
       } catch (err) {
         if (err.name !== "AbortError") {
@@ -1189,7 +1197,7 @@ function applyFallbackIfEmpty(list) {
       "Kein Overlay-Listing gefunden. Tipp: Öffnen Sie die Seite über einen lokalen Webserver (z.B. `python3 -m http.server`), damit Ordner/Dateien in `overlays/` automatisch erkannt werden können.",
     );
   }
-  const fallbackTheme = { name: "Standard", path: "", formats: defaultFormats };
+  const fallbackTheme = { name: "REWE Trikotaktion", path: "", formats: defaultFormats };
   themes = [fallbackTheme];
   formats = fallbackTheme.formats;
   populateThemeSelect(themes);
