@@ -148,10 +148,54 @@ const BUILT_IN_MANIFEST = {
       name: "REWE Trikotaktion",
       path: "REWE_Trikotaktion/",
       files: [
-        "Hochformat.png",
-        "Post.png",
-        "Quadratisch.png",
-        "Querformat.png",
+        {
+          key: "facebook_post_4x5",
+          label: "Facebook Beitrag (4:5)",
+          width: 1080,
+          height: 1350,
+          overlay: "Post.png",
+          filename: "flvw_facebook_post_1080x1350",
+        },
+        {
+          key: "facebook_story",
+          label: "Facebook Story",
+          width: 1080,
+          height: 1920,
+          overlay: "Querformat.png", // Correct (1080x1920)
+          filename: "flvw_facebook_story_1080x1920",
+        },
+        {
+          key: "instagram_post_4x5",
+          label: "Instagram Beitrag (4:5)",
+          width: 1080,
+          height: 1350,
+          overlay: "Post.png",
+          filename: "flvw_facebook_story_1080x1350",
+        },
+        {
+          key: "instagram_story",
+          label: "Instagram Story",
+          width: 1080,
+          height: 1920,
+          overlay: "Querformat.png", // Correct (1080x1920)
+          filename: "flvw_instagram_story_1080x1920",
+        },
+        {
+          key: "flvw_homepage",
+          label: "FLVW Homepage (16:9)",
+          width: 1920,
+          height: 1080,
+          overlay: "Hochformat.png", // Correct (1920x1080)
+          filename: "flvw_homepage_1920x1080",
+        },
+        {
+          key: "flvw_werbung",
+          label: "FLVW Werbung (1:1)",
+          width: 500,
+          height: 500,
+          overlay: "Quadratisch.png",
+          filename: "flvw_werbung_500x500",
+        },
       ],
     },
   ],
@@ -932,42 +976,46 @@ function triggerDownloadUrl(url, filename) {
 }
 
 async function discoverThemes() {
-  // Versucht, Unterordner in overlays/ als Themes zu erkennen
+  // 1. Versuche Auto-Discovery (Directory Listing)
   const themesFound = [];
-  const rootListing = await fetchOverlayListing("");
-  if (rootListing.files.length) {
-    const formatsForRoot = await buildFormatsForFiles(rootListing.files, "");
-    themesFound.push({ name: "Standard", path: "", formats: formatsForRoot });
+  try {
+    const rootListing = await fetchOverlayListing("");
+    if (rootListing.files.length) {
+      const formatsForRoot = await buildFormatsForFiles(rootListing.files, "");
+      themesFound.push({ name: "Standard", path: "", formats: formatsForRoot });
+    }
+    for (const dir of rootListing.dirs) {
+      const listing = await fetchOverlayListing(`${dir}/`);
+      if (listing.files.length) {
+        const formatsForDir = await buildFormatsForFiles(listing.files, `${dir}/`);
+        themesFound.push({ name: dir, path: `${dir}/`, formats: formatsForDir });
+      }
+    }
+  } catch (e) {
+    console.error("Auto-discovery failed:", e);
   }
-  for (const dir of rootListing.dirs) {
-    // eslint-disable-next-line no-await-in-loop
-    const listing = await fetchOverlayListing(`${dir}/`);
-    if (!listing.files.length) continue;
-    // eslint-disable-next-line no-await-in-loop
-    const formatsForDir = await buildFormatsForFiles(listing.files, `${dir}/`);
-    themesFound.push({ name: dir, path: `${dir}/`, formats: formatsForDir });
-  }
+
+  // Wenn Auto-Discovery Ergebnisse liefert (und diese Formate enthalten), nutze sie.
   if (themesFound.some((t) => t.formats?.length)) return themesFound;
 
-  // Fallback: optionales manifest.json (wenn kein Directory-Listing möglich ist)
-  const manifestThemes = await fetchOverlayManifest();
-  if (manifestThemes?.length) {
-    const themesFromManifest = (
-      await Promise.all(
-        manifestThemes.map((entry) => {
-          const path = ensureTrailingSlash(entry.path || "");
-          return buildFormatsForFiles(entry.files, path).then((formatsForManifest) => {
-            if (!formatsForManifest.length) return null;
-            return {
-              name: entry.name || (path ? path.replace(/\/$/, "") : "Standard"),
-              path,
-              formats: formatsForManifest,
-            };
-          });
-        }),
-      )
-    ).filter(Boolean);
-    if (themesFromManifest.length) return themesFromManifest;
+  // Fallback: Nutze DIREKT das BUILT_IN_MANIFEST
+  // Dies umgeht potenzielle Netzwerk-Probleme mit manifest.json/list.php in Firefox
+  const internalThemes = normalizeOverlayManifest(BUILT_IN_MANIFEST);
+  if (internalThemes?.length) {
+    const processedThemes = await Promise.all(
+      internalThemes.map(async (entry) => {
+        const path = ensureTrailingSlash(entry.path || "");
+        const formats = await buildFormatsForFiles(entry.files, path);
+        if (!formats.length) return null;
+        return {
+          name: entry.name || "REWE Trikotaktion",
+          path,
+          formats,
+        };
+      })
+    );
+    const validThemes = processedThemes.filter(Boolean);
+    if (validThemes.length) return validThemes;
   }
 
   return [];
@@ -1004,14 +1052,21 @@ async function fetchOverlayManifest() {
 
 function normalizeOverlayManifest(manifest) {
   if (Array.isArray(manifest)) {
-    const files = manifest.filter((f) => typeof f === "string" && f.toLowerCase().endsWith(".png"));
+    // Only filter if they are strings. Objects are passed through.
+    const files = manifest.filter((f) =>
+      (typeof f === "string" && f.toLowerCase().endsWith(".png")) ||
+      (typeof f === "object" && f.overlay)
+    );
     return files.length ? [{ name: "Standard", path: "", files }] : null;
   }
   if (manifest && typeof manifest === "object" && Array.isArray(manifest.themes)) {
     const themes = manifest.themes
       .map((theme) => {
         const files = Array.isArray(theme.files)
-          ? theme.files.filter((f) => typeof f === "string" && f.toLowerCase().endsWith(".png"))
+          ? theme.files.filter((f) =>
+            (typeof f === "string" && f.toLowerCase().endsWith(".png")) ||
+            (typeof f === "object" && f.overlay)
+          )
           : [];
         if (!files.length) return null;
         return {
@@ -1075,7 +1130,20 @@ async function buildFormatsForFiles(files, basePath = "") {
 }
 
 async function buildFormatFromFile(file, basePath = "") {
-  // Leitet Dimensionen aus Dateiname oder tatsächlicher Bildgröße ab
+  // Option A: Explicit configuration object
+  if (typeof file === "object" && file.overlay) {
+    // Adjust overlay path if relative
+    const overlayPath = file.overlay.startsWith("overlays/")
+      ? file.overlay
+      : `overlays/${basePath}${file.overlay.replace(/^\/+/, "")}`;
+
+    return {
+      ...file,
+      overlay: overlayPath,
+    };
+  }
+
+  // Option B: String path (Auto-discovery)
   const normalizedFile = typeof file === "string" ? file.replace(/^\/+/, "") : "";
   const filename = normalizedFile.split("/").pop();
   if (!filename) return null;
@@ -1192,17 +1260,19 @@ function setThemeSelectPlaceholder(text, disableSelect = true) {
 
 function applyFallbackIfEmpty(list) {
   if (Array.isArray(list) && list.length) return false;
+
+  // User requested: No fallbacks. If discoverThemes returns nothing, show nothing (or built-in manifest was empty/invalid).
+  // However, BUILT_IN_MANIFEST should catch this case via fetchOverlayManifest logic.
+  // If we reach here, it means even BUILT_IN_MANIFEST failed or returned no themes.
+
   if (IS_FILE_PROTOCOL) {
     console.warn(
-      "Kein Overlay-Listing gefunden. Tipp: Öffnen Sie die Seite über einen lokalen Webserver (z.B. `python3 -m http.server`), damit Ordner/Dateien in `overlays/` automatisch erkannt werden können.",
+      "Kein Overlay-Listing gefunden.",
     );
   }
-  const fallbackTheme = { name: "REWE Trikotaktion", path: "", formats: defaultFormats };
-  themes = [fallbackTheme];
-  formats = fallbackTheme.formats;
-  populateThemeSelect(themes);
-  setTheme(fallbackTheme.name);
-  // loading beendet, da auf Fallback umgeschaltet
+
+  // Explicitly do NOT set a hardcoded fallback theme here, as requested.
+  // If fallback is needed, it must come from BUILT_IN_MANIFEST.
   toggleThemeLoading(false);
   return true;
 }
@@ -1383,3 +1453,25 @@ async function rerenderFormat(format) {
 // Init UI state (n/a)
 toggleActions(false);
 toggleGenerate(false);
+
+// Browser Compatibility Check
+function checkBrowserSupport() {
+  const ua = navigator.userAgent;
+  // Simple detection for Firefox (Desktop or Mobile/FxiOS)
+  const isFirefox = /firefox|fxios/i.test(ua);
+
+  if (isFirefox) {
+    const warningOverlay = document.getElementById("browserWarning");
+    if (warningOverlay) {
+      warningOverlay.classList.remove("hidden");
+      // Prevent interactions
+      document.body.style.overflow = "hidden";
+      // Hide boot overlay to ensure warning is visible
+      const bootOverlay = document.getElementById("bootOverlay");
+      if (bootOverlay) bootOverlay.style.display = "none";
+    }
+  }
+}
+
+// Run immediately
+checkBrowserSupport();

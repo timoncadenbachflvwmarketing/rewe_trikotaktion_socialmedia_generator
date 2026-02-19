@@ -1507,3 +1507,68 @@ a.btn.primary {
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+/* Browser Warning Overlay */
+.browser-warning-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.browser-warning-content {
+  max-width: 500px;
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.warning-logo {
+  height: 60px;
+  margin-bottom: 1.5rem;
+}
+
+.browser-warning-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.browser-warning-content p {
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.browser-icons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.browser-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.browser-option img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0.25rem;
+}
