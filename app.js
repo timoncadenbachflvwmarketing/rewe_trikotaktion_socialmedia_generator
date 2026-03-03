@@ -31,23 +31,7 @@ const defaultFormats = [
     height: 1920,
     overlay: "overlays/REWE_Trikotaktion/Querformat.png", // Swapped based on actual dims
     filename: "flvw_instagram_story_1080x1920",
-  },
-  {
-    key: "flvw_homepage",
-    label: "FLVW Homepage (16:9)",
-    width: 1920,
-    height: 1080,
-    overlay: "overlays/REWE_Trikotaktion/Hochformat.png", // Swapped based on actual dims
-    filename: "flvw_homepage_1920x1080",
-  },
-  {
-    key: "flvw_werbung",
-    label: "FLVW Werbung (1:1)",
-    width: 500,
-    height: 500,
-    overlay: "overlays/REWE_Trikotaktion/Quadratisch.png",
-    filename: "flvw_werbung_500x500",
-  },
+  }
 ];
 
 // Aktuelle Formate (abhängig vom gewählten Theme)
@@ -179,23 +163,7 @@ const BUILT_IN_MANIFEST = {
           height: 1920,
           overlay: "Querformat.png", // Correct (1080x1920)
           filename: "flvw_instagram_story_1080x1920",
-        },
-        {
-          key: "flvw_homepage",
-          label: "FLVW Homepage (16:9)",
-          width: 1920,
-          height: 1080,
-          overlay: "Hochformat.png", // Correct (1920x1080)
-          filename: "flvw_homepage_1920x1080",
-        },
-        {
-          key: "flvw_werbung",
-          label: "FLVW Werbung (1:1)",
-          width: 500,
-          height: 500,
-          overlay: "Quadratisch.png",
-          filename: "flvw_werbung_500x500",
-        },
+        }
       ],
     },
   ],
